@@ -3,10 +3,10 @@
 using BepInEx;
 using HarmonyLib;
 using Startup.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ValheimMod_MapPlus.Helpers;
 using static Minimap;
 
 namespace ValheimMod_MapPlus
@@ -15,8 +15,6 @@ namespace ValheimMod_MapPlus
     [BepInPlugin("ValheimMod_MapPlus", "Map Plus", "1.0.0")]
     public class MapPlus : BaseUnityPlugin
     {
-        private static Minimap _minimap;
-
         private static List<PinData> _pins;
 
         private static bool _pinUpdateRequired;
@@ -35,49 +33,64 @@ namespace ValheimMod_MapPlus
         void OnDestroy() => _harmony.UnpatchSelf();
 
         [HarmonyPatch(typeof(Minimap), "Awake")]
-        class MinimapAwakePatche
+        class MinimapAwakePatch
         {
             [HarmonyPostfix]
-            static void MinimapAwake(ref Minimap ___m_instance, ref List<PinData> ___m_pins, ref bool ___m_pinUpdateRequired)
+            static void MinimapAwake(ref List<PinData> ___m_pins, ref bool ___m_pinUpdateRequired)
             {
-                _minimap = ___m_instance;
                 _pins = ___m_pins;
                 _pinUpdateRequired = ___m_pinUpdateRequired;
 
-#if DEBUG
-                Debug.Log("\n\n");
-                Debug.Log($"MapInstace id: {___m_instance.GetInstanceID()}");
-                Debug.Log($"Pins is null: {_pins == null}");
-                Debug.Log($"Pin update required: {_pinUpdateRequired}");
-                Debug.Log("\n");
-#endif
+                SpriteHelper.LoadSprites();
             }
         }
 
-        public static void AddOrUpdatePin(PinData pinData)
+#if DEBUG
+        //DEBUG helper
+        [HarmonyPatch(typeof(Minimap), nameof(Minimap.OnMapMiddleClick))]
+        class MinimapDebugPatch
         {
-            var existingPin = _pins.FirstOrDefault(p => p.m_ownerID.Equals(pinData.m_ownerID) && p.m_author.Equals(pinData.m_author));
+            [HarmonyPostfix]
+            static void OnMapMiddleClick(ref List<PinData> ___m_pins, ref bool ___m_pinUpdateRequired)
+            {
+                _pins = ___m_pins;
+                _pinUpdateRequired = ___m_pinUpdateRequired;
+
+                Debug.Log($" Plugin hot reloaded ");
+                Debug.Log($" Plugin hot reloaded ");
+                Debug.Log($" Plugin hot reloaded ");
+                Debug.Log($" Plugin hot reloaded ");
+                
+
+                SpriteHelper.LoadSprites();
+            }
+        }
+#endif
+
+        public static void AddOrUpdatePin(Vector3 pos, PinType type, string name, bool save, bool isChecked, long ownerID, string author)
+        {
+            var existingPin = _pins.FirstOrDefault(p => p.m_ownerID.Equals(ownerID) && p.m_author.Equals(author));
 
             if (existingPin != null)
             {
 #if !LOWPERFOMANCEMODE
-                _minimap.RemovePin(existingPin);
+                instance.RemovePin(existingPin);
 #else
                 existingPin.m_pos = pinData.m_pos;
                 _pinUpdateRequired = true;
 #endif
             }
 
-            _minimap.AddPin(pinData);
+            instance.AddPin(pos, type, name, save, isChecked, ownerID, author);
         }
 
-        public static void RemovePin(PinData pinData)
+        public static void RemovePin(long ownerID, string author)
         {
-            var existingPin = _pins.FirstOrDefault(p => p.m_ownerID.Equals(pinData.m_ownerID) && p.m_author.Equals(pinData.m_author));
+            var existingPin = _pins.FirstOrDefault(p => p.m_ownerID.Equals(ownerID) && p.m_author.Equals(author));
 
             if (existingPin != null)
             {
-                _minimap.RemovePin(pinData);
+                instance.RemovePin(existingPin);
             }
         }
     }

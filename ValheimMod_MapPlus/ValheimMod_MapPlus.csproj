@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,19 +61,203 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>Libraries\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\SpriteNameConstans.cs" />
+    <Compile Include="Constants\MapPlusConstants.cs" />
     <Compile Include="Extensions\MinimapExtensions.cs" />
     <Compile Include="Helpers\PinHelper.cs" />
+    <Compile Include="Helpers\SpriteHelper.cs" />
     <Compile Include="Patches\CreaturesVisibilityPatches.cs" />
     <Compile Include="MapPlus.cs" />
+    <Compile Include="Patches\OresVisibilityPatches.cs" />
+    <Compile Include="Patches\PinPatches.cs" />
+    <Compile Include="Patches\SpawnersVisibilityPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Images\PinIcons\AbandonedLogCabin03.png" />
+    <None Include="Images\PinIcons\BlackCore.png" />
+    <None Include="Images\PinIcons\blueberries.png" />
+    <None Include="Images\PinIcons\carrot.png" />
+    <None Include="Images\PinIcons\chitin.png" />
+    <None Include="Images\PinIcons\cloudberry.png" />
+    <None Include="Images\PinIcons\copperore.png" />
+    <None Include="Images\PinIcons\Dolmen01.png" />
+    <None Include="Images\PinIcons\dragonegg.png" />
+    <None Include="Images\PinIcons\flametalore.png" />
+    <None Include="Images\PinIcons\InfestedTree01.png" />
+    <None Include="Images\PinIcons\ironscrap.png" />
+    <None Include="Images\PinIcons\mapicon_egg.png" />
+    <None Include="Images\PinIcons\mapicon_pin_blueberry.png" />
+    <None Include="Images\PinIcons\mapicon_pin_cloudberry.png" />
+    <None Include="Images\PinIcons\mapicon_pin_copper.png" />
+    <None Include="Images\PinIcons\mapicon_pin_iron.png" />
+    <None Include="Images\PinIcons\mapicon_pin_obsidian.png" />
+    <None Include="Images\PinIcons\mapicon_pin_raspberry.png" />
+    <None Include="Images\PinIcons\mapicon_pin_silver.png" />
+    <None Include="Images\PinIcons\mapicon_pin_thistle.png" />
+    <None Include="Images\PinIcons\mapicon_pin_tin.png" />
+    <None Include="Images\PinIcons\Mistlands_DvergrTownEntrance1.png" />
+    <None Include="Images\PinIcons\Mistlands_DvergrTownEntrance2.png" />
+    <None Include="Images\PinIcons\Mistlands_Excavation1.png" />
+    <None Include="Images\PinIcons\Mistlands_Giant1.png" />
+    <None Include="Images\PinIcons\Mistlands_GuardTower1_new.png" />
+    <None Include="Images\PinIcons\Mistlands_Harbour1.png" />
+    <None Include="Images\PinIcons\Mistlands_RoadPost1.png" />
+    <None Include="Images\PinIcons\Mistlands_Statue2.png" />
+    <None Include="Images\PinIcons\Mistlands_Swords2.png" />
+    <None Include="Images\PinIcons\Mistlands_Viaduct1.png" />
+    <None Include="Images\PinIcons\MountainWell1.png" />
+    <None Include="Images\PinIcons\mushroom.png" />
+    <None Include="Images\PinIcons\mushroomjotunpuffs.png" />
+    <None Include="Images\PinIcons\mushroommagecap.png" />
+    <None Include="Images\PinIcons\obsidian.png" />
+    <None Include="Images\PinIcons\raspberry.png" />
+    <None Include="Images\PinIcons\royaljelly.png" />
+    <None Include="Images\PinIcons\Ruin2.png" />
+    <None Include="Images\PinIcons\runestone.png" />
+    <None Include="Images\PinIcons\seedcarrot.png" />
+    <None Include="Images\PinIcons\seedturnip.png" />
+    <None Include="Images\PinIcons\ShipWreck02.png" />
+    <None Include="Images\PinIcons\silverore.png" />
+    <None Include="Images\PinIcons\StoneCircle.png" />
+    <None Include="Images\PinIcons\StoneHouse3.png" />
+    <None Include="Images\PinIcons\StoneTower1.png" />
+    <None Include="Images\PinIcons\StoneTowerRuins05.png" />
+    <None Include="Images\PinIcons\StoneTowerRuins07.png" />
+    <None Include="Images\PinIcons\surtling_core.png" />
+    <None Include="Images\PinIcons\SwampHut2.png" />
+    <None Include="Images\PinIcons\SwampRuin1.png" />
+    <None Include="Images\PinIcons\thistle.png" />
+    <None Include="Images\PinIcons\TinOre.png" />
+    <None Include="Images\PinIcons\TrophyDraugr.png" />
+    <None Include="Images\PinIcons\TrophyFrostTroll.png" />
+    <None Include="Images\PinIcons\TrophyGoblin.png" />
+    <None Include="Images\PinIcons\TrophyGolem.png" />
+    <None Include="Images\PinIcons\TrophyGreydwarf.png" />
+    <None Include="Images\PinIcons\TrophyGrowth.png" />
+    <None Include="Images\PinIcons\TrophySerpent.png" />
+    <None Include="Images\PinIcons\TrophySkeleton.png" />
+    <None Include="Images\PinIcons\TrophySurtling.png" />
+    <None Include="Images\PinIcons\turnip.png" />
+    <None Include="Images\PinIcons\witheredbone.png" />
+    <None Include="Images\PinIcons\WoodHouse5.png" />
+    <None Include="Images\PinIcons\Abomination.png" />
+    <None Include="Images\PinIcons\bed.png" />
+    <None Include="Images\PinIcons\bonfire.png" />
+    <None Include="Images\PinIcons\Cart.png" />
+    <None Include="Images\PinIcons\Crypt4.png" />
+    <None Include="Images\PinIcons\DrakeNest01.png" />
+    <None Include="Images\PinIcons\Dverger.png" />
+    <None Include="Images\PinIcons\Fenring.png" />
+    <None Include="Images\PinIcons\firepit.png" />
+    <None Include="Images\PinIcons\fire_pit.png" />
+    <None Include="Images\PinIcons\fish1.png" />
+    <None Include="Images\PinIcons\fish10.png" />
+    <None Include="Images\PinIcons\fish11.png" />
+    <None Include="Images\PinIcons\fish12.png" />
+    <None Include="Images\PinIcons\fish2.png" />
+    <None Include="Images\PinIcons\fish3.png" />
+    <None Include="Images\PinIcons\fish4.png" />
+    <None Include="Images\PinIcons\fish5.png" />
+    <None Include="Images\PinIcons\fish6.png" />
+    <None Include="Images\PinIcons\fish7.png" />
+    <None Include="Images\PinIcons\fish8.png" />
+    <None Include="Images\PinIcons\fish9.png" />
+    <None Include="Images\PinIcons\giant_helmet1.png" />
+    <None Include="Images\PinIcons\giant_ribs.png" />
+    <None Include="Images\PinIcons\giant_sword1.png" />
+    <None Include="Images\PinIcons\Gjall.png" />
+    <None Include="Images\PinIcons\goblintotem.png" />
+    <None Include="Images\PinIcons\Grave1.png" />
+    <None Include="Images\PinIcons\Greyling.png" />
+    <None Include="Images\PinIcons\guardstone.png" />
+    <None Include="Images\PinIcons\Karve.png" />
+    <None Include="Images\PinIcons\longship.png" />
+    <None Include="Images\PinIcons\Lox.png" />
+    <None Include="Images\PinIcons\maypole.png" />
+    <None Include="Images\PinIcons\Meteorite.png" />
+    <None Include="Images\PinIcons\Mistlands_Giant2-ribs.png" />
+    <None Include="Images\PinIcons\Oak1.png" />
+    <None Include="Images\PinIcons\onion_sapling.png" />
+    <None Include="Images\PinIcons\Pickable_Barley_Wild.png" />
+    <None Include="Images\PinIcons\Pickable_Dandelion.png" />
+    <None Include="Images\PinIcons\Pickable_Flax_Wild.png" />
+    <None Include="Images\PinIcons\Pickable_Mushroom_JotunPuffs.png" />
+    <None Include="Images\PinIcons\Pickable_Mushroom_Magecap.png" />
+    <None Include="Images\PinIcons\Pickable_SeedCarrot.png" />
+    <None Include="Images\PinIcons\Pickable_SeedTurnip.png" />
+    <None Include="Images\PinIcons\Pickable_Thistle.png" />
+    <None Include="Images\PinIcons\piece_beehive.png" />
+    <None Include="Images\PinIcons\piece_chest_wood.png" />
+    <None Include="Images\PinIcons\piece_sapcollector.png" />
+    <None Include="Images\PinIcons\piece_turret.png" />
+    <None Include="Images\PinIcons\portal_wood.png" />
+    <None Include="Images\PinIcons\queenbee.png" />
+    <None Include="Images\PinIcons\raft.png" />
+    <None Include="Images\PinIcons\Ruin3.png" />
+    <None Include="Images\PinIcons\ShipSetting01.png" />
+    <None Include="Images\PinIcons\StatueEvil.png" />
+    <None Include="Images\PinIcons\StoneGolem.png" />
+    <None Include="Images\PinIcons\StoneHenge3.png" />
+    <None Include="Images\PinIcons\StoneTower3.png" />
+    <None Include="Images\PinIcons\StoneTowerRuins04.png" />
+    <None Include="Images\PinIcons\SwampHut5.png" />
+    <None Include="Images\PinIcons\Tick.png" />
+    <None Include="Images\PinIcons\Trap.png" />
+    <None Include="Images\PinIcons\treasure_pile.png" />
+    <None Include="Images\PinIcons\TrophyBlob.png" />
+    <None Include="Images\PinIcons\TrophyBoar.png" />
+    <None Include="Images\PinIcons\TrophyBonemass.png" />
+    <None Include="Images\PinIcons\TrophyCultist.png" />
+    <None Include="Images\PinIcons\TrophyDeathSquito.png" />
+    <None Include="Images\PinIcons\TrophyDeer.png" />
+    <None Include="Images\PinIcons\TrophyDragonQueen.png" />
+    <None Include="Images\PinIcons\TrophyDraugrElite.png" />
+    <None Include="Images\PinIcons\TrophyDraugrFem.png" />
+    <None Include="Images\PinIcons\TrophyDvergr.png" />
+    <None Include="Images\PinIcons\TrophyEikthyr.png" />
+    <None Include="Images\PinIcons\TrophyFenring.png" />
+    <None Include="Images\PinIcons\TrophyForestTroll.png" />
+    <None Include="Images\PinIcons\TrophyGoblinBrute.png" />
+    <None Include="Images\PinIcons\TrophyGoblinKing.png" />
+    <None Include="Images\PinIcons\TrophyGoblinShaman.png" />
+    <None Include="Images\PinIcons\TrophyGreydwarfBrute.png" />
+    <None Include="Images\PinIcons\TrophyGreydwarfShaman.png" />
+    <None Include="Images\PinIcons\TrophyHare.png" />
+    <None Include="Images\PinIcons\TrophyHatchling.png" />
+    <None Include="Images\PinIcons\TrophyLeech.png" />
+    <None Include="Images\PinIcons\TrophyNeck.png" />
+    <None Include="Images\PinIcons\TrophySeeker.png" />
+    <None Include="Images\PinIcons\TrophySeekerBrute.png" />
+    <None Include="Images\PinIcons\TrophySeekerQueen.png" />
+    <None Include="Images\PinIcons\TrophySkeletonPoison.png" />
+    <None Include="Images\PinIcons\TrophyTheElder.png" />
+    <None Include="Images\PinIcons\TrophyTick.png" />
+    <None Include="Images\PinIcons\TrophyWolf.png" />
+    <None Include="Images\PinIcons\wisplure.png" />
+    <None Include="Images\PinIcons\WoodHouse11.png" />
+    <None Include="Images\PinIcons\WoodHouse3.png" />
+    <None Include="Images\PinIcons\WoodHouse4.png" />
+    <None Include="Images\PinIcons\WoodHouse6.png" />
+    <None Include="Images\PinIcons\WoodHouse7.png" />
+    <None Include="Images\PinIcons\WoodHouse8.png" />
+    <None Include="Images\PinIcons\workbench.png" />
+    <None Include="Images\PinIcons\Wraith.png" />
+    <None Include="Images\PinIcons\YggdrasilRoot.png" />
     <Content Include="Libraries\0Harmony.dll" />
     <Content Include="Libraries\assembly_valheim.dll" />
     <Content Include="Libraries\BepInEx.dll" />
@@ -80,6 +265,16 @@
     <Content Include="Libraries\UnityEngine.dll" />
     <Content Include="Libraries\UnityEngine.UI.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)\ValheimMod_MapPlus.dll" "Q:\SteamLibrary\steamapps\common\Valheim\BepInEx\scripts" /y /s</PostBuildEvent>
